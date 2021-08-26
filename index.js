@@ -90,9 +90,11 @@ class Jugador {
   constructor(x) {
     this.x = x;
     this.y = 460;
+    this.w = 60;
+    this.h = 40;
     this.dibuja = function (x) {
       this.x = x;
-      ctx.drawImage(imagen, this.x, this.y, 60, 40);
+      ctx.drawImage(imagen, this.x, this.y, this.w, this.h);
     };
     this.isShooting = false;
   }
@@ -185,9 +187,21 @@ function checkIfColision() {
       }
     }
   }
-  /* for(let j = 0 ; j<balasEnemigas_array.length;j++){
-    bala = balasEnemigas_array
-  } */
+  for(var j=0; j<balasEnemigas_array.length; j++){
+		bala = balasEnemigas_array[j];
+		if(bala != null){
+			if((bala.x > jugador.x)&& 
+				(bala.x < jugador.x+jugador.w)&& 
+				(bala.y > jugador.y)&& 
+				(bala.y < jugador.y+jugador.h)){
+					gameOver();
+          break;	
+			}
+		}
+	}
+}
+function gameOver(){
+  alert("insert 50cent for play");
 }
 function verifica() {
   if (tecla[KEY_RIGHT]) {
