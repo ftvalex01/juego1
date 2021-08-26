@@ -4,7 +4,7 @@
     margin:0 auto;
     background-size: contain;
     border:1px solid black;
-    background-image: url("/imagenes/marsinvaders.png");
+    background-image: url("./marsinvaders.png");
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: center;
