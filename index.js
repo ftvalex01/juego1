@@ -81,6 +81,7 @@ let balas_array = new Array();
 let enemigos_array = new Array();
 let balasEnemigas_array = new Array();
 let timer_disparos;
+let finJuegos = false;
 
 /* 
 OBJETOS
@@ -160,12 +161,13 @@ class Bala {
   }
 }
 /* FUNCIONES */
-
-function anima() {
-  requestAnimationFrame(anima); //funcion para refresco
-  verifica(); //verifica el avanze del objeto
-  pinta(); //pinta el objeto
-  checkIfColision();// verifica las colisiones
+if(finJuegos == false){
+  function anima() {
+    requestAnimationFrame(anima); //funcion para refresco
+    verifica(); //verifica el avanze del objeto
+    pinta(); //pinta el objeto
+    checkIfColision();// verifica las colisiones
+  }
 }
 
 function checkIfColision() {
@@ -200,7 +202,12 @@ function checkIfColision() {
   }
 }
 function gameOver() {
-  alert("insert 50cent for play");
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  enemigos_array = [];
+  balasEnemigas_array = [];
+  balas_array = [];
+  finJuegos = true;
+  alert("has perdido")
 }
 function verifica() {
   if (tecla[KEY_RIGHT]) {
