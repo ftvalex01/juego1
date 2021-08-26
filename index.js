@@ -12,8 +12,8 @@ window.onload = function () {
     x = canvas.width / 2 // posicionar nave
     imagen = new Image(); // asignamos valor a la variable
     imagenEnemigo = new Image();
-    imagenEnemigo.src = "./Project-One/assets/imagenes/invader.png"//ruta de las imagenes
-    imagen.src = "./Project-One/assets/imagenes/player.png"
+    imagenEnemigo.src = "./imagenes/invader.png"//ruta de las imagenes
+    imagen.src = "./imagenes/player.png"
     imagen.onload = function () {  // carga playernave
       jugador = new Jugador(0);
       jugador.dibuja(canvas.width / 2);
