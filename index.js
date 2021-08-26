@@ -27,7 +27,7 @@ window.onload = function () {
             );
           }
         }
-        timer_disparos = setTimeout(disparaEnemigo, 1500);
+        timer_disparos = setInterval(disparaEnemigo, 6000); 
       }
 
 
@@ -82,6 +82,7 @@ let enemigos_array = new Array();
 let balasEnemigas_array = new Array();
 let timer_disparos;
 let finJuegos = false;
+let puntos = 0;
 
 /* 
 OBJETOS
@@ -161,6 +162,7 @@ class Bala {
   }
 }
 /* FUNCIONES */
+
 if(finJuegos == false){
   function anima() {
     requestAnimationFrame(anima); //funcion para refresco
@@ -183,6 +185,7 @@ function checkIfColision() {
           enemigo.vive = false;
           enemigos_array[i] = null;
           balas_array[j] = null;
+          puntos += 10
           /*  enemigos_array.splice(i, 1);
            balas_array.splice(j, 1); */
         }
@@ -206,35 +209,70 @@ function gameOver() {
   enemigos_array = [];
   balasEnemigas_array = [];
   balas_array = [];
+  clearTimeout(timer_disparos);
   finJuegos = true;
   alert("has perdido")
 }
+/* function init(){
+ 
+  
+}
+
+function resetCanvas(){
+  restartGame = document.getElementById("button");
+  restartGame.addEventListener("click",function(){
+    init()
+  }); 
+  } */
+
+function score(){
+  ctx.save();
+  ctx.fillStyle = "white";
+  ctx.clearRect (0,0,canvas.width,40);
+  ctx.font = "normal 20px sans-serif";
+  ctx.fillText("Puntos:"+puntos,10,20);
+  ctx.restore();
+}
 function verifica() {
   if (tecla[KEY_RIGHT]) {
-    x += 5;
+    x += 2;
     //console.log("derecha funciona")
   }
   if (tecla[KEY_LEFT]) {
-    x -= 5;
-
-    //console.log("izquierda funciona")
+    x -= 2;
+     //console.log("izquierda funciona")
   }
+  if(tecla[KEY_DOWN]){
+    jugador.y += 2
+  }
+  if(tecla[KEY_UP]){
+    jugador.y -= 2
+  }
+
+
+
   //nave
   if (x > canvas.width - 60) {
     x = canvas.width - 60;
   } else if (x < 0) {
     x = 0;
   }
+  /* if(jugador.y > canvas.height){
+    jugador.y = canvas.height;
+  }else if(jugador.y > 0){
+    jugador.y = 0;
+  } */
   if (tecla[BARRA]) {
     balas_array.push(new Bala(jugador.x + 12, jugador.y - 3, 5));
     tecla[BARRA] = false;
-    setInterval(() => {
+    setTimeout(() => {
       disparaEnemigo()
-    }, 1500);
+    }, 1100); 
   }
 }
 function pinta() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  score();
   jugador.dibuja(x);
   //balas
   for (let i = 0; i < balas_array.length; i++) {
@@ -256,9 +294,14 @@ function pinta() {
   }
 
   //enemigos
+  numEnemigos = 0;
   for (let i = 0; i < enemigos_array.length; i++) {
     if (enemigos_array[i] != null) {
       enemigos_array[i].dibuja();
+      numEnemigos++
+      if(enemigos_array[i].y == jugador.y){
+        gameOver();
+      }
     }
   }
 }
@@ -307,5 +350,5 @@ function disparaEnemigo() {
   }
   randomPick = ultimaFila[Math.floor(Math.random() * 10)];
   balasEnemigas_array.push(new Bala(enemigos_array[randomPick].x + enemigos_array[randomPick].w / 2,
-    enemigos_array[randomPick].y, 5));
+  enemigos_array[randomPick].y, 5));
 }
