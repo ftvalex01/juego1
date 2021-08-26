@@ -6,37 +6,37 @@ INICIADOR
 
 window.onload = function () {
   canvas = document.getElementById('canvas');//coge el canvas en una variable
-  if(canvas && canvas.getContext){
+  if (canvas && canvas.getContext) {
     ctx = canvas.getContext("2d");//asignando un valor a la variable declarada
-  if (ctx) {
-    x = canvas.width / 2 // posicionar nave
-    imagen = new Image(); // asignamos valor a la variable
-    imagenEnemigo = new Image();
-    imagenEnemigo.src = "./invader.png"//ruta de las imagenes
-    imagen.src = "./player.png"
-    imagen.onload = function () {  // carga playernave
-      jugador = new Jugador(0);
-      jugador.dibuja(canvas.width / 2);
-      anima();
-    }
-    imagenEnemigo.onload = function () { // carga naves enemigas
-      for (let i = 0; i < 5; i++) {//row
-        for (let j = 0; j < 10; j++) { //column
-          enemigos_array.push(
-            new Enemigo(100 + 40 * j, 30 + 45 * i)
-          );
-        }
+    if (ctx) {
+      x = canvas.width / 2 // posicionar nave
+      imagen = new Image(); // asignamos valor a la variable
+      imagenEnemigo = new Image();
+      imagenEnemigo.src = "./invader.png"//ruta de las imagenes
+      imagen.src = "./player.png"
+      imagen.onload = function () {  // carga playernave
+        jugador = new Jugador(0);
+        jugador.dibuja(canvas.width / 2);
+        anima();
       }
-      timer_disparos = setTimeout(disparaEnemigo, 1500);
+      imagenEnemigo.onload = function () { // carga naves enemigas
+        for (let i = 0; i < 5; i++) {//row
+          for (let j = 0; j < 10; j++) { //column
+            enemigos_array.push(
+              new Enemigo(100 + 40 * j, 30 + 45 * i)
+            );
+          }
+        }
+        timer_disparos = setTimeout(disparaEnemigo, 1500);
+      }
+
+
+
+
+    } else {
+      console.log("tu canvas no funciona")
     }
-
-
-
-
-  } else {
-    console.log("tu canvas no funciona")
   }
-}
 };
 
 /* 
@@ -54,7 +54,7 @@ window.requestAnimationFrame = (function () {
 document.addEventListener("keydown", function (e) { //tecla pulsada
   teclaPulsada = e.keyCode;
   tecla[e.keyCode] = true;
-  
+
 });
 document.addEventListener("keyup", function (e) { //tecla soltada
   tecla[e.keyCode] = false;
@@ -132,7 +132,7 @@ class Enemigo {
       if (this.vive) {
         ctx.drawImage(imagenEnemigo, 0, 0, 40, 30, this.x, this.y, 35, 30);
       }
-     
+
     }
 
   }
@@ -179,28 +179,27 @@ function checkIfColision() {
           (bala.y > enemigo.y) &&
           (bala.y < enemigo.y + enemigo.w)) {
           enemigo.vive = false;
-          enemigos_array[i]=null;
+          enemigos_array[i] = null;
           balas_array[j] = null;
-         /*  enemigos_array.splice(i, 1);
-          balas_array.splice(j, 1); */
+          /*  enemigos_array.splice(i, 1);
+           balas_array.splice(j, 1); */
         }
       }
     }
   }
-  for(var j=0; j<balasEnemigas_array.length; j++){
-		bala = balasEnemigas_array[j];
-		if(bala != null){
-			if((bala.x > jugador.x)&& 
-				(bala.x < jugador.x+jugador.w)&& 
-				(bala.y > jugador.y)&& 
-				(bala.y < jugador.y+jugador.h)){
-					gameOver();
-          break;	
-			}
-		}
-	}
+  for (var j = 0; j < balasEnemigas_array.length; j++) {
+    bala = balasEnemigas_array[j];
+    if (bala != null) {
+      if ((bala.x > jugador.x) &&
+        (bala.x < jugador.x + jugador.w) &&
+        (bala.y > jugador.y) &&
+        (bala.y < jugador.y + jugador.h)) {
+        gameOver();
+      }
+    }
+  }
 }
-function gameOver(){
+function gameOver() {
   alert("insert 50cent for play");
 }
 function verifica() {
@@ -210,6 +209,7 @@ function verifica() {
   }
   if (tecla[KEY_LEFT]) {
     x -= 5;
+
     //console.log("izquierda funciona")
   }
   //nave
@@ -218,11 +218,13 @@ function verifica() {
   } else if (x < 0) {
     x = 0;
   }
-  if(tecla[BARRA]){
-		balas_array.push(new Bala(jugador.x+12,jugador.y-3,5));	
-		tecla[BARRA]=false;
-		disparaEnemigo()
-	}
+  if (tecla[BARRA]) {
+    balas_array.push(new Bala(jugador.x + 12, jugador.y - 3, 5));
+    tecla[BARRA] = false;
+    setInterval(() => {
+      disparaEnemigo()
+    }, 1500);
+  }
 }
 function pinta() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -298,5 +300,5 @@ function disparaEnemigo() {
   }
   randomPick = ultimaFila[Math.floor(Math.random() * 10)];
   balasEnemigas_array.push(new Bala(enemigos_array[randomPick].x + enemigos_array[randomPick].w / 2,
-  enemigos_array[randomPick].y, 5));
+    enemigos_array[randomPick].y, 5));
 }
