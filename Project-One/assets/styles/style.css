@@ -1,0 +1,22 @@
+#body{
+    width: 90vw;
+    height: 90vh;
+    margin:0 auto;
+    background-size: contain;
+    border:1px solid black;
+    background-image: url("/Project-One/assets/imagenes/marsinvaders.png");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    
+    
+}
+#canvas-container{ 
+    width: 600px;
+    height: 500px;
+    margin:0 auto;
+    margin-top:30vh;
+    border: 1px solid red;
+    background-color:black;
+    
+}
