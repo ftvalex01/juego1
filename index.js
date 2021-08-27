@@ -194,7 +194,7 @@ function checkIfColision() {
       }
     }
   }
-  /* for (var j = 0; j < balasEnemigas_array.length; j++) {
+  for (var j = 0; j < balasEnemigas_array.length; j++) {
     bala = balasEnemigas_array[j];
     if (bala != null) {
       if ((bala.x > jugador.x) &&
@@ -204,7 +204,7 @@ function checkIfColision() {
         gameOver();
       }
     }
-  } */
+  } 
 }
 function gameOver() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -311,41 +311,6 @@ function pinta() {
     gameWin();
   }
 }
-
-/* function disparar() {
-  if (!jugador.isShooting) {
-    jugador.isShooting = true;
-    balas_array.push(new Bala(jugador.x + 28, jugador.y - 3, 3, 5));
-    setTimeout(() => {
-      jugador.isShooting = false;
-    }, 200);
-  }
-} */
-/* function disparaEnemigo(){            
- 
-  enemigos_array.forEach(element1 => {
-   enemigos_array.forEach(element2 => {
-     if((element1.y < element2.y)&&(element1.x === element2.x)){
-        element1.isFirst = true;
-        
-     } 
-     else{
-       element1.isFirst = false;
-     }
- 
-     enemigos_array.forEach(element => {
-       if(element.isFirst === true){
-        
-       }
-     });
- 
-   });
- });
-  if(enemigos_array != null){
-  
-  }
-} */
-
 function disparaEnemigo() {
   let ultimaFila = new Array();
   for (let i = enemigos_array.length - 1; i > 0; i--) {
@@ -359,3 +324,15 @@ function disparaEnemigo() {
   balasEnemigas_array.push(new Bala(enemigos_array[randomPick].x + enemigos_array[randomPick].w / 2,
     enemigos_array[randomPick].y, 5));
 }
+
+/* function disparar() {
+  if (!jugador.isShooting) {
+    jugador.isShooting = true;
+    balas_array.push(new Bala(jugador.x + 28, jugador.y - 3, 3, 5));
+    setTimeout(() => {
+      jugador.isShooting = false;
+    }, 200);
+  }
+} */
+
+
