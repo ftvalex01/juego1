@@ -73,7 +73,7 @@ let KEY_RIGHT = 39;
 let KEY_UP = 38;
 let KEY_DOWN = 40;
 let BARRA = 32;
-let imagen, imagenEnemigo;
+let imagen, imagenEnemigo,imagenVictoria;
 let tecla = [];
 let teclaPulsada = null;
 let colorBala = "red";
@@ -83,6 +83,7 @@ let balasEnemigas_array = new Array();
 let timer_disparos;
 let finJuegos = false;
 let puntos = 0;
+let numEnemigos = 0;
 
 /* 
 OBJETOS
@@ -186,13 +187,14 @@ function checkIfColision() {
           enemigos_array[i] = null;
           balas_array[j] = null;
           puntos += 10
+          numEnemigos--
           /*  enemigos_array.splice(i, 1);
            balas_array.splice(j, 1); */
         }
       }
     }
   }
-  for (var j = 0; j < balasEnemigas_array.length; j++) {
+  /* for (var j = 0; j < balasEnemigas_array.length; j++) {
     bala = balasEnemigas_array[j];
     if (bala != null) {
       if ((bala.x > jugador.x) &&
@@ -202,7 +204,7 @@ function checkIfColision() {
         gameOver();
       }
     }
-  }
+  } */
 }
 function gameOver() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -214,10 +216,10 @@ function gameOver() {
   finJuegos = true;
   alert("has perdido")
 }
-function init(){
- 
-  
+function gameWin(){
+  alert("you WIN")
 }
+
 
 function resetCanvas(){
   restartGame = document.getElementById("button");
@@ -305,7 +307,11 @@ function pinta() {
       }
     }
   }
+  if(numEnemigos == 0){
+    gameWin();
+  }
 }
+
 /* function disparar() {
   if (!jugador.isShooting) {
     jugador.isShooting = true;
