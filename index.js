@@ -307,7 +307,7 @@ function pinta() {
       }
     }
   }
-  if(numEnemigos == 0){
+  if(numEnemigos === 0){
     gameWin();
   }
 }
